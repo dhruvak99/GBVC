@@ -92,26 +92,19 @@ def main():
                     pyautogui.hotkey('ctlr','down')
                     print("volume down")
             elif gesture == 'play/pause':
-                if previous_gesture=='play/pause' and timedifference <=2:
+                if previous_gesture=='play/pause' and timedifference <=5:
                     pass
                 else:
                     pyautogui.typewrite(['space'],0.5)
                     print("play/pause")
             elif gesture == 'mute':
-                if previous_gesture=='mute' and timedifference <= 2:
+                if previous_gesture=='mute' and timedifference <=5:
                     pass
                 else:
-                    pyautogui.press('m')
+                    pyautogui.hotkey('m')
                     print("mute")
             previous_gesture = gesture
 
-            # currenttime = datetime.datetime.now()
-            # diff = currenttime-previoustime
-            # if gesture == previous_gesture and previous_gesture in ['play/pause','mute'] and diff.seconds >=2:
-            #     previous_gesture = gesture
-            # else:
-            #     print(gesture)
-            #     previous_gesture = gesture
         cv2.imshow("Image",img)
         k = cv2.waitKey(50)
         # if cv2.waitKey(5) & 0xFF == 27:
