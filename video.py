@@ -2,6 +2,7 @@ import cv2
 import time
 import numpy as np 
 import os
+import datetime
 import HandTracking as ht
 import pyautogui
 import math
@@ -19,6 +20,7 @@ def main():
     detector = ht.handDetector(detectionCon=0.75)
     gesture = None
     previous_gesture = None
+    previoustime = datetime.datetime.now()
     while True:
         # print(lmlist)
         success, img = cap.read()
@@ -73,11 +75,43 @@ def main():
             elif total_fingers == 0:
                 gesture = 'mute'
                 # print('mute')
-            if gesture == previous_gesture:
-                pass
-            else:
-                print(gesture)
-                previous_gesture = gesture
+            currenttime = datetime.datetime.now()
+            timedifference = currenttime-previoustime
+            timedifference=timedifference.seconds
+            if gesture == 'forward':
+                pyautogui.hotkey('shift','right')
+                print("forward")
+            elif gesture == 'backward':
+                pyautogui.hotkey('shift','left')
+                print("backward")
+            elif gesture == 'volume':
+                if vol > 75:
+                    pyautogui.hotkey('ctrl','up')
+                    print("volume up")
+                else:
+                    pyautogui.hotkey('ctlr','down')
+                    print("volume down")
+            elif gesture == 'play/pause':
+                if previous_gesture=='play/pause' and timedifference <=2:
+                    pass
+                else:
+                    pyautogui.typewrite(['space'],0.5)
+                    print("play/pause")
+            elif gesture == 'mute':
+                if previous_gesture=='mute' and timedifference <= 2:
+                    pass
+                else:
+                    pyautogui.press('m')
+                    print("mute")
+            previous_gesture = gesture
+
+            # currenttime = datetime.datetime.now()
+            # diff = currenttime-previoustime
+            # if gesture == previous_gesture and previous_gesture in ['play/pause','mute'] and diff.seconds >=2:
+            #     previous_gesture = gesture
+            # else:
+            #     print(gesture)
+            #     previous_gesture = gesture
         cv2.imshow("Image",img)
         k = cv2.waitKey(50)
         # if cv2.waitKey(5) & 0xFF == 27:
