@@ -4,16 +4,15 @@ import numpy as np
 import os
 import sys
 import vlc
-import datetime
 import HandTracking as ht
-import pyautogui
 import math
 
 def detect_gestures():
     '''
+    The following functions has been used to control the mediaplayerinstance
     vlc.libvlc_media_player_get_position(media)
-    vlc.libvlc_media_player_set_position(media,a)
-    media.audio_set_volume(80)
+    vlc.libvlc_media_player_set_position(media,percentage_value)
+    media.audio_set_volume(volume_value)
     media.play()
     media.pause()
     vlc.libvlc_audio_get_mute(p_mi)
@@ -37,10 +36,9 @@ def detect_gestures():
     previoustime = time.time()
     while True:
         # print(lmlist)
-        
         success, img = cap.read()
         cv2.rectangle(img,(5,5),(270,270),color=(255,22,0),thickness=2)
-        cv2.putText(img,"Perform the gesture inside the blue box",(500,100),cv2.FONT_HERSHEY_SIMPLEX,1,color=(255,22,0),thickness=2,cv2.LINE_AA)
+        cv2.putText(img,"Perform the gesture inside the blue box",(70,430),cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,22,0),2,cv2.LINE_AA)
         detection_region = img[5:270,5:270]
         detection_region = detector.findHands(detection_region)
         lmlist = detector.findPosition(detection_region, draw=False)
