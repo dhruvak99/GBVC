@@ -40,6 +40,7 @@ def detect_gestures():
         
         success, img = cap.read()
         cv2.rectangle(img,(5,5),(270,270),color=(255,22,0),thickness=2)
+        cv2.putText(img,"Perform the gesture inside the blue box",(500,100),cv2.FONT_HERSHEY_SIMPLEX,1,color=(255,22,0),thickness=2,cv2.LINE_AA)
         detection_region = img[5:270,5:270]
         detection_region = detector.findHands(detection_region)
         lmlist = detector.findPosition(detection_region, draw=False)
