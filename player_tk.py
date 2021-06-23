@@ -16,7 +16,6 @@ from os.path import basename, expanduser, isfile, join as joined
 from pathlib import Path
 import time
 
-
 def main():
 	
 	try:
@@ -29,6 +28,7 @@ def main():
 			open_file.media = vlc.MediaPlayer(video)
 			open_file.media.set_hwnd(frame.winfo_id())
 			open_file.media.play()
+			volume_scale.set(vlc.libvlc_audio_get_volume(open_file.media))
 		def quit_player():
 			exit()
 
