@@ -59,6 +59,9 @@ def main():
 			# volume = int(val)/100
 			open_file.media.audio_set_volume(volume_scale.get())
 
+		def stop_file():
+			vlc.libvlc_media_player_stop(open_file.media)
+
 	except:
 		pass
 			
@@ -70,7 +73,8 @@ def main():
 	frame.pack()
 	menubar = Menu(root)
 	file = Menu(menubar, tearoff=0)  
-	file.add_command(label="Open",command=lambda:open_file())      
+	file.add_command(label="Open",command=lambda:open_file()) 
+	file.add_command(label="Stop",command=lambda:stop_file())     
 	file.add_command(label="Exit",command=quit_player)  
 	menubar.add_cascade(label="File", menu=file)
 	root.config(menu=menubar)
