@@ -67,7 +67,10 @@ def main():
 			vlc.libvlc_media_player_stop(open_file.media)
 
 		def gesture_controller():
-			pass
+			'''
+			call the gesture_detection program
+			
+			'''
 
 	except:
 		pass
@@ -81,7 +84,7 @@ def main():
 	menubar = Menu(root)
 	file = Menu(menubar, tearoff=0)  
 	file.add_command(label="Open",command=lambda:open_file()) 
-	# file.add_command(label="Stop",command=lambda:stop_file())     
+	file.add_command(label="Stop",command=lambda:stop_file())     
 	file.add_command(label="Exit",command=quit_player)  
 	menubar.add_cascade(label="File", menu=file)
 	root.config(menu=menubar)
