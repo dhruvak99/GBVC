@@ -62,6 +62,9 @@ def main():
 		def stop_file():
 			vlc.libvlc_media_player_stop(open_file.media)
 
+		def gesture_controller():
+			pass
+
 	except:
 		pass
 			
@@ -74,7 +77,7 @@ def main():
 	menubar = Menu(root)
 	file = Menu(menubar, tearoff=0)  
 	file.add_command(label="Open",command=lambda:open_file()) 
-	file.add_command(label="Stop",command=lambda:stop_file())     
+	# file.add_command(label="Stop",command=lambda:stop_file())     
 	file.add_command(label="Exit",command=quit_player)  
 	menubar.add_cascade(label="File", menu=file)
 	root.config(menu=menubar)
@@ -108,6 +111,13 @@ def main():
 	pause_icon = ImageTk.PhotoImage(pause_img)
 	button1 = tk.Button(root,image=pause_icon,fg='black',command=lambda:pause(open_file.media))
 	button1.place(relx=0.56,rely=0.9)
+
+	#gesture button
+	gesture_img = Image.open('gesture.png')
+	gesture_img = gesture_img.resize((50,50))
+	gesture_icon = ImageTk.PhotoImage(gesture_img)
+	button4 = tk.Button(root,image=gesture_icon,fg='black')
+	button4.place(relx=0.28,rely=0.9)
 	
 	volume_scale = tk.Scale(root,from_=0,to=150,orient=tk.HORIZONTAL,width=28,length=150,command=set_volume)
 	volume_scale.place(relx=0.634,rely=0.9)
