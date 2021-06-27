@@ -85,39 +85,39 @@ def main():
 	file.add_command(label="Exit",command=quit_player)  
 	menubar.add_cascade(label="File", menu=file)
 	root.config(menu=menubar)
-	photo = PhotoImage(file='icon.png')
+	photo = PhotoImage(file='icon_images/icon.png')
 	root.iconphoto(False,photo)
 
 	#play icon
-	play_image = Image.open('play.png')
+	play_image = Image.open('icon_images/play.png')
 	play_image = play_image.resize((50,50))
 	play_icon = ImageTk.PhotoImage(play_image)
 	button = tk.Button(root,image=play_icon,fg='black',command=lambda:play(open_file.media))
 	button.place(relx=0.35,rely=0.9)
 
 	#backward icon
-	backward_img = Image.open('backward.png')
+	backward_img = Image.open('icon_images/backward.png')
 	backward_img = backward_img.resize((50,50))
 	backward_icon = ImageTk.PhotoImage(backward_img)
 	button3 = tk.Button(root,image=backward_icon,fg='white',command=lambda:backward(open_file.media))
 	button3.place(relx=0.42,rely=0.9)
 
 	#forward icon
-	forward_img = Image.open('forward.png')
+	forward_img = Image.open('icon_images/forward.png')
 	forward_img = forward_img.resize((50,50))
 	forward_icon = ImageTk.PhotoImage(forward_img)
 	button2 = tk.Button(root,image=forward_icon,fg='black',command=lambda:forward(open_file.media))
 	button2.place(relx=0.49,rely=0.9)
 
 	#pause icon
-	pause_img = Image.open('pause.png')
+	pause_img = Image.open('icon_images/pause.png')
 	pause_img = pause_img.resize((50,50))
 	pause_icon = ImageTk.PhotoImage(pause_img)
 	button1 = tk.Button(root,image=pause_icon,fg='black',command=lambda:pause(open_file.media))
 	button1.place(relx=0.56,rely=0.9)
 
 	#gesture button
-	gesture_img = Image.open('gesture.png')
+	gesture_img = Image.open('icon_images/gesture.png')
 	gesture_img = gesture_img.resize((50,50))
 	gesture_icon = ImageTk.PhotoImage(gesture_img)
 	button4 = tk.Button(root,image=gesture_icon,fg='black')
