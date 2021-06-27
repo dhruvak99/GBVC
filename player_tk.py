@@ -2,6 +2,7 @@ import tkinter as tk
 import vlc
 import os
 import sys
+import platform
 if sys.version_info[0] < 3:
     import Tkinter as Tk
     from Tkinter import *
@@ -26,7 +27,10 @@ def main():
 	                            ("mp4 files", "*.mp4"),
 	                            ("mov files", "*.mov")))
 			open_file.media = vlc.MediaPlayer(video)
-			open_file.media.set_hwnd(frame.winfo_id())
+			if platform.system() == 'Linux':
+				open_file.media.set_xwindow(frame.winfo_id())
+			if platform.system() == 'Windows':
+				open_file.media.set_hwnd(frame.winfo_id())
 			open_file.media.play()
 			volume_scale.set(vlc.libvlc_audio_get_volume(open_file.media))
 		def quit_player():
