@@ -24,7 +24,8 @@ class MenuBar(Menu,tk.Button,tk.Scale):
         self.parent = root
         file = Menu(self,tearoff = False)
         file.add_command(label="Open",command=self.OnOpen)
-        # file.add_command(label="Stop")
+        if platform.system() == 'Linux':
+            file.add_command(label="Stop",command=self.stop_file)
         file.add_command(label="Exit",command=self.close)
 
         self.add_cascade(label="File",menu=file)
@@ -59,7 +60,7 @@ class MenuBar(Menu,tk.Button,tk.Scale):
         self.gesture_image = Image.open('icon_images/gesture.png')
         self.gesture_image = self.gesture_image.resize((50,50))
         self.gesture_icon = ImageTk.PhotoImage(self.gesture_image)
-        self.gesture_button =  tk.Button(root,image=self.gesture_icon,fg='black')
+        self.gesture_button =  tk.Button(root,image=self.gesture_icon,fg='black',bg='red',command=self.gesture_recognise)
         self.gesture_button.place(relx=0.28,rely=0.9)
 
         self.volume_scale = tk.Scale(root,from_=0,to=150,orient=tk.HORIZONTAL,width=28,length=150,command=self.set_volume)
@@ -74,6 +75,10 @@ class MenuBar(Menu,tk.Button,tk.Scale):
 
         self.Play(video)
 
+    def stop_file(self):
+        if vlc.libvlc_media_player_is_playing(self.media):
+            self.media.stop()
+
     def Play(self,video):
         self.media = vlc.MediaPlayer(video)
         if platform.system() == 'Linux':
@@ -82,6 +87,7 @@ class MenuBar(Menu,tk.Button,tk.Scale):
             self.media.set_hwnd(self.parent.winfo_id())
         self.media.play()
         self.volume_scale.set(vlc.libvlc_audio_get_volume(self.media))
+        
             
     def pause_video(self):
         if vlc.libvlc_media_player_is_playing(self.media):
@@ -96,14 +102,20 @@ class MenuBar(Menu,tk.Button,tk.Scale):
         if video_position == 0:
             vlc.libvlc_media_player_set_position(self.media,video_position+0.01)
         if video_position!=-1:
-            vlc.libvlc_media_player_set_position(media,video_position-0.001)
+            vlc.libvlc_media_player_set_position(self.media,video_position-0.001)
 
     def go_forward(self):
         video_position = vlc.libvlc_media_player_get_position(self.media)
         if video_position == 1:
             vlc.libvlc_media_player_set_position(self.media,video_position-0.01)
         if video_position!=-1:
-            vlc.libvlc_media_player_set_position(media,video_position+0.001)
+            vlc.libvlc_media_player_set_position(self.media,video_position+0.001)
+
+    def gesture_recognise(self):
+        if self.gesture_button.cget('bg') == 'red':
+            self.gesture_button.configure(bg ='green')
+        elif self.gesture_button.cget('bg') =='green':
+            self.gesture_button.configure(bg = 'red')
 
     def close(self):
         self.exit()
@@ -120,7 +132,7 @@ class FrameBox(tk.Frame):
 
         self.width = root.winfo_screenwidth()
         self.height = root.winfo_screenheight()
-        self.frame = tk.Frame(root,width=self.width,height=self.height,bg='green')
+        self.frame = tk.Frame(root,width=self.width,height=self.height,bg='black')
         self.frame.pack()
 
 class App(tk.Tk):
