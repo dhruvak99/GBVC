@@ -22,8 +22,7 @@ from os.path import basename, expanduser, isfile, join as joined
 from pathlib import Path
 import time
 import webcam_test as wt 
-import tkinter_opencv as tkop
-import tkg as TKG
+import tkinter_gesture_class as TKG
 from tkinter import messagebox
 
 class MenuBar(Menu,tk.Button,tk.Scale):
