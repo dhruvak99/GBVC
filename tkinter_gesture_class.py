@@ -6,6 +6,7 @@ import HandTracking as ht
 import math
 import numpy as np  
 import sys
+import time
 import platform
 if sys.version_info[0] < 3:
     import Tkinter as Tk
@@ -21,8 +22,6 @@ from PIL import Image
 from PIL import ImageTk
 from os.path import basename, expanduser, isfile, join as joined
 from pathlib import Path
-import time
-import webcam_test as wt 
 from tkinter import messagebox
 
 
@@ -86,7 +85,7 @@ class MyVideoCapture:
             ret,frame = self.vid.read()
             if ret:
                 cv2.rectangle(frame,(5,5),(270,270),color=(255,22,0),thickness=2)
-                cv2.putText(frame,"Perform the gesture inside the blue box",(70,430),cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,22,0),2,cv2.LINE_AA)
+                cv2.putText(frame,"Perform the gesture inside the blue box",(70,430),cv2.FONT_HERSHEY_SIMPLEX,0.8,(255,255,255),2,cv2.LINE_AA)
                 detection_region = frame[5:270,5:270]
                 detection_region = self.detector.findHands(detection_region)
                 points_list = self.detector.findPosition(detection_region,draw=False)

@@ -1,10 +1,6 @@
 import tkinter as tk
 import vlc
-import os
-import cv2
-import HandTracking as ht 
-import math
-import numpy as np  
+import os 
 import sys
 import platform
 if sys.version_info[0] < 3:
@@ -21,7 +17,6 @@ from PIL import ImageTk
 from os.path import basename, expanduser, isfile, join as joined
 from pathlib import Path
 import time
-import webcam_test as wt 
 import tkinter_gesture_class as TKG
 from tkinter import messagebox
 
@@ -123,10 +118,10 @@ class MenuBar(Menu,tk.Button,tk.Scale):
         if video_position!=-1:
             vlc.libvlc_media_player_set_position(self.media,video_position+0.001)
 
-    def newwindow(self):
-        newwin = Toplevel(self.parent)
-        newwin.title("new")
-        newwin.geometry("200x200")
+    # def newwindow(self):
+    #     newwin = Toplevel(self.parent)
+    #     newwin.title("new")
+    #     newwin.geometry("200x200")
 
     def gesture_recognise(self):
         '''
