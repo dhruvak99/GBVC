@@ -43,6 +43,8 @@ class App:
         self.window.destroy()
         del self.vid
         cv2.destroyAllWindows()
+
+        #uncomment these 4 lines for a message window
         # if messagebox.askokcancel("Quit", "Do you want to quit?"):
         #     self.window.destroy()
         #     del self.vid

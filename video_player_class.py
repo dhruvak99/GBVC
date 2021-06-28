@@ -23,6 +23,8 @@ from pathlib import Path
 import time
 import webcam_test as wt 
 import tkinter_opencv as tkop
+import tkg as TKG
+from tkinter import messagebox
 
 class MenuBar(Menu,tk.Button,tk.Scale):
     def __init__(self,root):
@@ -70,7 +72,8 @@ class MenuBar(Menu,tk.Button,tk.Scale):
         self.gesture_image = Image.open('icon_images/gesture.png')
         self.gesture_image = self.gesture_image.resize((50,50))
         self.gesture_icon = ImageTk.PhotoImage(self.gesture_image)
-        self.gesture_button =  tk.Button(self.frame,image=self.gesture_icon,fg='black',bg='red',command=self.gesture_recognise)
+        #add button background color
+        self.gesture_button =  tk.Button(self.frame,image=self.gesture_icon,fg='black',command=self.gesture_recognise)
         self.gesture_button.place(relx=0.28,rely=0.9)
 
         self.volume_scale = tk.Scale(self.frame,from_=0,to=150,orient=tk.HORIZONTAL,width=28,length=150,command=self.set_volume)
@@ -131,12 +134,16 @@ class MenuBar(Menu,tk.Button,tk.Scale):
         start gesture recognition, turn button color to green
         if button is pressed again stop gesture recognition window, turn button color to red
         '''
+
         # wt.detect_gestures(self.media)
         # if self.gesture_button.cget('bg') == 'red':
         #     self.gesture_button.configure(bg ='green')
         # elif self.gesture_button.cget('bg') =='green':
         #     self.gesture_button.configure(bg = 'red')
-        tkop.App(self.parent,"Gesture Window")
+
+        #testing
+
+        TKG.App(self.parent,self.media,"Gesture Window")
         
 
     def close(self):
@@ -168,6 +175,9 @@ class App(tk.Tk):
         self.maxsize(800,600)
         self.resizable(False,False)
     
+    def on_closing(self):
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.destroy()
 
     def set_icon(self,path):
         player_icon = PhotoImage(file=path)
@@ -180,6 +190,7 @@ def main():
     # frame = FrameBox(app)
     file_menu = MenuBar(app)
     app.config(menu=file_menu)
+    # app.on_closing()
     app.mainloop()
 
 if __name__ == '__main__':
